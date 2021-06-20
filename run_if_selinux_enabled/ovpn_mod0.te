@@ -1,0 +1,18 @@
+
+module ovpn_mod0 1.0;
+
+require {
+	type chkpwd_t;
+	type unreserved_port_t;
+	type openvpn_t;
+	class udp_socket name_bind;
+	class process { noatsecure rlimitinh siginh };
+	class capability dac_override;
+}
+
+#============= chkpwd_t ==============
+allow chkpwd_t self:capability dac_override;
+
+#============= openvpn_t ==============
+allow openvpn_t chkpwd_t:process { noatsecure rlimitinh siginh };
+allow openvpn_t unreserved_port_t:udp_socket name_bind;
