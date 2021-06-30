@@ -95,7 +95,7 @@ function func_create_cli_cert_and_conf() {
     echo "remote $IP_VPN_SERVER_CL $VPN_PORT_CL" >> $CLI_FILES_DIR_RESULT_CL/$CN.conf;
     echo 'proto udp' >> $CLI_FILES_DIR_RESULT_CL/$CN.conf;
     echo 'dev tun' >> $CLI_FILES_DIR_RESULT_CL/$CN.conf;
-    echo 'comp-lzo yes' >> $CLI_FILES_DIR_RESULT_CL/$CN.conf;
+    echo 'comp-lzo no' >> $CLI_FILES_DIR_RESULT_CL/$CN.conf;
     echo "ca $CN/ca.crt" >> $CLI_FILES_DIR_RESULT_CL/$CN.conf;
     echo "cert $CN/$CN.crt" >> $CLI_FILES_DIR_RESULT_CL/$CN.conf;
     echo "key $CN/$CN.key" >> $CLI_FILES_DIR_RESULT_CL/$CN.conf;
