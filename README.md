@@ -5,4 +5,3 @@ Tested on AlmaLinux8.
 
 Author github profile: https://github.com/vladimir-chursin000
 
-test
