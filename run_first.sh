@@ -1,5 +1,7 @@
 #!/usr/bin/bash
 
+#run as root
+
 SYSCTL_CONF_GREP=`grep net.ipv4.ip_forward /etc/sysctl.conf | wc -l`;
 
 if [ "$SYSCTL_CONF_GREP" -eq "1" ]; then

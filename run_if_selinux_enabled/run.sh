@@ -1,5 +1,7 @@
 #!/usr/bin/bash
 
+#ru as root
+
 SELF_DIR=`pwd -P`;
 
 dnf -y install selinux-policy;
