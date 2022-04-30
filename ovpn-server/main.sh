@@ -438,7 +438,7 @@ function func_full_setup_vpn_server {
     echo "######" >> $SELF_DIR/"RESTART_OVPN-$VPN_SERVER_NAME_S.sh";
     echo "systemctl restart openvpn-server@$VPN_SERVER_NAME_S;" >> $SELF_DIR/"RESTART_OVPN-$VPN_SERVER_NAME_S.sh";
     echo "systemctl enable openvpn-server@$VPN_SERVER_NAME_S;" >> $SELF_DIR/"RESTART_OVPN-$VPN_SERVER_NAME_S.sh";
-    echo "echo 'Now openvpn-$VPN_SERVER_NAME_S' is started/restarted';" >> $SELF_DIR/"RESTART_OVPN-$VPN_SERVER_NAME_S.sh";
+    echo "echo \"Now 'openvpn-$VPN_SERVER_NAME_S' is started/restarted\";" >> $SELF_DIR/"RESTART_OVPN-$VPN_SERVER_NAME_S.sh";
     chmod +x $SELF_DIR/"RESTART_OVPN-$VPN_SERVER_NAME_S.sh";
     #
     #Gen stop-scripts
@@ -446,7 +446,7 @@ function func_full_setup_vpn_server {
     echo "######" >> $SELF_DIR/"STOP_OVPN-$VPN_SERVER_NAME_S.sh";
     echo "systemctl stop openvpn-server@$VPN_SERVER_NAME_S;" >> $SELF_DIR/"STOP_OVPN-$VPN_SERVER_NAME_S.sh";
     echo "systemctl disable openvpn-server@$VPN_SERVER_NAME_S;" >> $SELF_DIR/"STOP_OVPN-$VPN_SERVER_NAME_S.sh";
-    echo "echo 'Now openvpn-$VPN_SERVER_NAME_S' is stopped (and set no autostart )';" >> $SELF_DIR/"STOP_OVPN-$VPN_SERVER_NAME_S.sh";
+    echo "echo \"Now 'openvpn-$VPN_SERVER_NAME_S' is stopped (and set no autostart)'\";" >> $SELF_DIR/"STOP_OVPN-$VPN_SERVER_NAME_S.sh";
     chmod +x $SELF_DIR/"STOP_OVPN-$VPN_SERVER_NAME_S.sh";
     #
     ###

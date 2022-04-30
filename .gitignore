@@ -6,3 +6,4 @@ ovpn-server/RESTART_OVPN-server.sh
 ovpn-server/SAVED_CERT_PASSWORDS.txt
 ovpn-server/STOP_OVPN-server.sh
 ovpn-server/readme-firewalld-rules.txt
+ovpn-server/readme-selinux-rules.txt
