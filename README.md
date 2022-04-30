@@ -1,5 +1,5 @@
 # openvpn_helper
-This scripts help you to bring up openvpn-server with easy-rsa.
+This scripts help you to bring up openvpn-server with easy-rsa (run as root).
 
 Tested on AlmaLinux8.
 
