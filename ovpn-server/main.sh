@@ -128,11 +128,11 @@ function func_create_cli_cert_and_conf() {
     echo 'proto udp' >> "$CLI_FILES_DIR_RESULT_CL/$CN.ovpn";
     echo 'dev tun' >> "$CLI_FILES_DIR_RESULT_CL/$CN.ovpn";
     echo 'comp-lzo no' >> "$CLI_FILES_DIR_RESULT_CL/$CN.ovpn";
-    echo "ca \"C:\\Program Files\\OpenVPN\\config\\$CN\\ca.crt\"" >> "$CLI_FILES_DIR_RESULT_CL/$CN.ovpn";
-    echo "cert \"C:\\Program Files\\OpenVPN\\config\\$CN\\$CN.crt\"" >> "$CLI_FILES_DIR_RESULT_CL/$CN.ovpn";
-    echo "key \"C:\\Program Files\\OpenVPN\\config\\$CN\\$CN.key\"" >> "$CLI_FILES_DIR_RESULT_CL/$CN.ovpn";
+    echo "ca \"C:\\\\Program Files\\\\OpenVPN\\\\config\\\\$CN\\\\ca.crt\"" >> "$CLI_FILES_DIR_RESULT_CL/$CN.ovpn";
+    echo "cert \"C:\\\\Program Files\\\\OpenVPN\\\\config\\\\$CN\\\\$CN.crt\"" >> "$CLI_FILES_DIR_RESULT_CL/$CN.ovpn";
+    echo "key \"C:\\\\Program Files\\\\OpenVPN\\\\config\\\\$CN\\\\$CN.key\"" >> "$CLI_FILES_DIR_RESULT_CL/$CN.ovpn";
     echo 'tls-client' >> "$CLI_FILES_DIR_RESULT_CL/$CN.ovpn";
-    echo "tls-auth \"C:\\Program Files\\OpenVPN\\config\\$CN\\ta.key\" 1" >> "$CLI_FILES_DIR_RESULT_CL/$CN.ovpn";
+    echo "tls-auth \"C:\\\\Program Files\\\\OpenVPN\\\\config\\\\$CN\\\\ta.key\" 1" >> "$CLI_FILES_DIR_RESULT_CL/$CN.ovpn";
     echo 'cipher AES-256-GCM' >> "$CLI_FILES_DIR_RESULT_CL/$CN.ovpn";
     echo 'float' >> "$CLI_FILES_DIR_RESULT_CL/$CN.ovpn";
     echo 'keepalive 10 30' >> "$CLI_FILES_DIR_RESULT_CL/$CN.ovpn";
@@ -140,17 +140,17 @@ function func_create_cli_cert_and_conf() {
     echo 'persist-key' >> "$CLI_FILES_DIR_RESULT_CL/$CN.ovpn";
     echo 'persist-tun' >> "$CLI_FILES_DIR_RESULT_CL/$CN.ovpn";
     echo "verb $VPN_CLI_LOG_LEVEL_CL" >> "$CLI_FILES_DIR_RESULT_CL/$CN.ovpn";
-    echo "#status \"C:\\Program Files\\OpenVPN\\log\\openvpn-$CN-status.log\"" >> "$CLI_FILES_DIR_RESULT_CL/$CN.ovpn";
-    echo "#log-append \"C:\\Program Files\\OpenVPN\\log\\openvpn-$CN.log\"" >> "$CLI_FILES_DIR_RESULT_CL/$CN.ovpn";
+    echo "#status \"C:\\\\Program Files\\\\OpenVPN\\\\log\\\\openvpn-$CN-status.log\"" >> "$CLI_FILES_DIR_RESULT_CL/$CN.ovpn";
+    echo "#log-append \"C:\\\\Program Files\\\\OpenVPN\\\\log\\\\openvpn-$CN.log\"" >> "$CLI_FILES_DIR_RESULT_CL/$CN.ovpn";
     echo '###' >> "$CLI_FILES_DIR_RESULT_CL/$CN.ovpn";
     echo '#Uncomment if need for automatic entering client-cert-password' >> "$CLI_FILES_DIR_RESULT_CL/$CN.ovpn";
-    echo "#askpass \"C:\\Program Files\\OpenVPN\\config\\$CN.askpass\"" >> "$CLI_FILES_DIR_RESULT_CL/$CN.ovpn";
+    echo "#askpass \"C:\\\\Program Files\\\\OpenVPN\\\\config\\\\$CN.askpass\"" >> "$CLI_FILES_DIR_RESULT_CL/$CN.ovpn";
     echo '###' >> "$CLI_FILES_DIR_RESULT_CL/$CN.ovpn";
     echo 'auth-nocache' >> "$CLI_FILES_DIR_RESULT_CL/$CN.ovpn";
     echo 'remote-cert-tls server' >> "$CLI_FILES_DIR_RESULT_CL/$CN.ovpn";
     echo 'mtu-test' >> "$CLI_FILES_DIR_RESULT_CL/$CN.ovpn";
     echo 'auth-user-pass' >> "$CLI_FILES_DIR_RESULT_CL/$CN.ovpn";
-    echo "#auth-user-pass \"C:\\Program Files\\OpenVPN\\config\\$CN.auth\"" >> "$CLI_FILES_DIR_RESULT_CL/$CN.ovpn";
+    echo "#auth-user-pass \"C:\\\\Program Files\\\\OpenVPN\\\\config\\\\$CN.auth\"" >> "$CLI_FILES_DIR_RESULT_CL/$CN.ovpn";
     echo '###' >> "$CLI_FILES_DIR_RESULT_CL/$CN.ovpn";
     echo '#For windows-openvpn-client' >> "$CLI_FILES_DIR_RESULT_CL/$CN.ovpn";
     echo '###=============For autostart via win-scheduler' >> "$CLI_FILES_DIR_RESULT_CL/$CN.ovpn";
@@ -279,15 +279,33 @@ function func_full_setup_vpn_server {
     echo 'user nobody' >> "$VPN_CONF_DIR_S/$VPN_SERVER_NAME_S.conf";
     echo 'mtu-test' >> "$VPN_CONF_DIR_S/$VPN_SERVER_NAME_S.conf";
     echo 'username-as-common-name' >> "$VPN_CONF_DIR_S/$VPN_SERVER_NAME_S.conf";
-    echo "group openvpn_users_$VPN_SERVER_NAME_S" >> "$VPN_CONF_DIR_S/$VPN_SERVER_NAME_S.conf"; #check
-    echo "plugin /usr/lib64/openvpn/plugins/openvpn-plugin-auth-pam.so openvpn_$VPN_SERVER_NAME_S" >> "$VPN_CONF_DIR_S/$VPN_SERVER_NAME_S.conf"; #check
+    echo "group openvpn_users_$VPN_SERVER_NAME_S" >> "$VPN_CONF_DIR_S/$VPN_SERVER_NAME_S.conf";
+    echo "plugin /usr/lib64/openvpn/plugins/openvpn-plugin-auth-pam.so openvpn_$VPN_SERVER_NAME_S" >> "$VPN_CONF_DIR_S/$VPN_SERVER_NAME_S.conf";
+    
+    echo '' >> "$VPN_CONF_DIR_S/$VPN_SERVER_NAME_S.conf";
+    echo '###' >> "$VPN_CONF_DIR_S/$VPN_SERVER_NAME_S.conf";
+    echo "#Uncomment this if need access from one client to another" >> "$VPN_CONF_DIR_S/$VPN_SERVER_NAME_S.conf";
     echo "#push \"route $VPN_NETWORK_S\"" >> "$VPN_CONF_DIR_S/$VPN_SERVER_NAME_S.conf";
+    echo '###' >> "$VPN_CONF_DIR_S/$VPN_SERVER_NAME_S.conf";
+    echo '' >> "$VPN_CONF_DIR_S/$VPN_SERVER_NAME_S.conf";
+    
     echo "push \"route $VPN_INTERNAL_NETWORK_ROUTE_S\"" >> "$VPN_CONF_DIR_S/$VPN_SERVER_NAME_S.conf";
+    
+    echo '' >> "$VPN_CONF_DIR_S/$VPN_SERVER_NAME_S.conf";
     echo '###' >> "$VPN_CONF_DIR_S/$VPN_SERVER_NAME_S.conf";
     echo '#Uncomment if dnsmasq is confugired' >> "$VPN_CONF_DIR_S/$VPN_SERVER_NAME_S.conf";
     echo "#push \"dhcp-option DNS $VPN_DHCP_IP_S\"" >> "$VPN_CONF_DIR_S/$VPN_SERVER_NAME_S.conf";
     echo '###' >> "$VPN_CONF_DIR_S/$VPN_SERVER_NAME_S.conf";
+    echo '' >> "$VPN_CONF_DIR_S/$VPN_SERVER_NAME_S.conf";
+    
     echo 'topology subnet' >> "$VPN_CONF_DIR_S/$VPN_SERVER_NAME_S.conf";
+    
+    echo '' >> "$VPN_CONF_DIR_S/$VPN_SERVER_NAME_S.conf";
+    echo '###' >> "$VPN_CONF_DIR_S/$VPN_SERVER_NAME_S.conf";
+    echo "#Uncomment this if need set this vpn-server as default gateway" >> "$VPN_CONF_DIR_S/$VPN_SERVER_NAME_S.conf";
+    echo "#push \"redirect-gateway def1\"" >> "$VPN_CONF_DIR_S/$VPN_SERVER_NAME_S.conf";
+    echo '###' >> "$VPN_CONF_DIR_S/$VPN_SERVER_NAME_S.conf";
+    echo '' >> "$VPN_CONF_DIR_S/$VPN_SERVER_NAME_S.conf";
     #
     echo "VPN-conf-file='$VPN_CONF_DIR_S/$VPN_SERVER_NAME_S.conf' was created";
     ###
@@ -378,8 +396,8 @@ function func_full_setup_vpn_server {
     echo "# firewall-cmd --permanent --zone=$VPN_SERVER_INT_FIREWALLD_ZONE_S --remove-port=$VPN_PORT_S/udp /// for deny udp port" >> "$SELF_DIR/readme-firewalld-rules.txt";
     echo "# firewall-cmd --permanent --zone=$VPN_SERVER_INT_FIREWALLD_ZONE_S --remove-port=$VPN_PORT_S/tcp /// for deny tcp port" >> "$SELF_DIR/readme-firewalld-rules.txt";
     echo '###' >> "$SELF_DIR/readme-firewalld-rules.txt";
-    echo "# firewall-cmd --permanent --zone=public --add-rich-rule='rule family=ipv4 source address=$VPN_NETWORK_MASQUERADE_SRC_S destination address=$VPN_INTERNAL_NETWORK_MASQUERADE_DST_S masquerade' /// allow masquerading" >> "$SELF_DIR/readme-firewalld-rules.txt";
-    echo "# firewall-cmd --permanent --zone=public --remove-rich-rule='rule family=ipv4 source address=$VPN_NETWORK_MASQUERADE_SRC_S destination address=$VPN_INTERNAL_NETWORK_MASQUERADE_DST_S masquerade' /// Deny masquerading" >> "$SELF_DIR/readme-firewalld-rules.txt";
+    echo "# firewall-cmd --permanent --zone=$VPN_SERVER_INT_FIREWALLD_ZONE_S --add-rich-rule='rule family=ipv4 source address=$VPN_NETWORK_MASQUERADE_SRC_S destination address=$VPN_INTERNAL_NETWORK_MASQUERADE_DST_S masquerade' /// allow masquerading from vpn-network to internal network" >> "$SELF_DIR/readme-firewalld-rules.txt";
+    echo "# firewall-cmd --permanent --zone=$VPN_SERVER_INT_FIREWALLD_ZONE_S --remove-rich-rule='rule family=ipv4 source address=$VPN_NETWORK_MASQUERADE_SRC_S destination address=$VPN_INTERNAL_NETWORK_MASQUERADE_DST_S masquerade' /// Deny masquerading from vpn-network to internal network" >> "$SELF_DIR/readme-firewalld-rules.txt";
     echo '###' >> "$SELF_DIR/readme-firewalld-rules.txt";
     echo "# firewall-cmd --list-all --zone=$VPN_SERVER_INT_FIREWALLD_ZONE_S /// view all rules for firewall zone" >> "$SELF_DIR/readme-firewalld-rules.txt";
     echo '###' >> "$SELF_DIR/readme-firewalld-rules.txt";
