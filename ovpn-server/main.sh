@@ -284,7 +284,7 @@ function func_full_setup_vpn_server {
     
     echo '' >> "$VPN_CONF_DIR_S/$VPN_SERVER_NAME_S.conf";
     echo '###' >> "$VPN_CONF_DIR_S/$VPN_SERVER_NAME_S.conf";
-    echo "#Uncomment this if need access from one client to another" >> "$VPN_CONF_DIR_S/$VPN_SERVER_NAME_S.conf";
+    echo "#Uncomment this if need access from one client to another. Do not forget about firewall rules" >> "$VPN_CONF_DIR_S/$VPN_SERVER_NAME_S.conf";
     echo "#push \"route $VPN_NETWORK_S\"" >> "$VPN_CONF_DIR_S/$VPN_SERVER_NAME_S.conf";
     echo '###' >> "$VPN_CONF_DIR_S/$VPN_SERVER_NAME_S.conf";
     echo '' >> "$VPN_CONF_DIR_S/$VPN_SERVER_NAME_S.conf";
@@ -293,7 +293,7 @@ function func_full_setup_vpn_server {
     
     echo '' >> "$VPN_CONF_DIR_S/$VPN_SERVER_NAME_S.conf";
     echo '###' >> "$VPN_CONF_DIR_S/$VPN_SERVER_NAME_S.conf";
-    echo '#Uncomment if dnsmasq is confugired' >> "$VPN_CONF_DIR_S/$VPN_SERVER_NAME_S.conf";
+    echo '#Uncomment if dnsmasq is confugired. Do not forget about firewall rules' >> "$VPN_CONF_DIR_S/$VPN_SERVER_NAME_S.conf";
     echo "#push \"dhcp-option DNS $VPN_DHCP_IP_S\"" >> "$VPN_CONF_DIR_S/$VPN_SERVER_NAME_S.conf";
     echo '###' >> "$VPN_CONF_DIR_S/$VPN_SERVER_NAME_S.conf";
     echo '' >> "$VPN_CONF_DIR_S/$VPN_SERVER_NAME_S.conf";
@@ -302,7 +302,7 @@ function func_full_setup_vpn_server {
     
     echo '' >> "$VPN_CONF_DIR_S/$VPN_SERVER_NAME_S.conf";
     echo '###' >> "$VPN_CONF_DIR_S/$VPN_SERVER_NAME_S.conf";
-    echo "#Uncomment this if need set this vpn-server as default gateway" >> "$VPN_CONF_DIR_S/$VPN_SERVER_NAME_S.conf";
+    echo "#Uncomment this if need set this vpn-server as default gateway. Do not forget about firewall rules" >> "$VPN_CONF_DIR_S/$VPN_SERVER_NAME_S.conf";
     echo "#push \"redirect-gateway def1\"" >> "$VPN_CONF_DIR_S/$VPN_SERVER_NAME_S.conf";
     echo '###' >> "$VPN_CONF_DIR_S/$VPN_SERVER_NAME_S.conf";
     echo '' >> "$VPN_CONF_DIR_S/$VPN_SERVER_NAME_S.conf";
@@ -398,6 +398,14 @@ function func_full_setup_vpn_server {
     echo '###' >> "$SELF_DIR/readme-firewalld-rules.txt";
     echo "# firewall-cmd --permanent --zone=$VPN_SERVER_INT_FIREWALLD_ZONE_S --add-rich-rule='rule family=ipv4 source address=$VPN_NETWORK_MASQUERADE_SRC_S destination address=$VPN_INTERNAL_NETWORK_MASQUERADE_DST_S masquerade' /// allow masquerading from vpn-network to internal network" >> "$SELF_DIR/readme-firewalld-rules.txt";
     echo "# firewall-cmd --permanent --zone=$VPN_SERVER_INT_FIREWALLD_ZONE_S --remove-rich-rule='rule family=ipv4 source address=$VPN_NETWORK_MASQUERADE_SRC_S destination address=$VPN_INTERNAL_NETWORK_MASQUERADE_DST_S masquerade' /// Deny masquerading from vpn-network to internal network" >> "$SELF_DIR/readme-firewalld-rules.txt";
+    echo '###' >> "$SELF_DIR/readme-firewalld-rules.txt";
+    echo "# firewall-cmd --permanent --zone=vpn_z --add-rich-rule='rule family=ipv4 source address=XXX.XXX.XXX.XXX/32 destination address=0.0.0.0/0 masquerade' /// for option 'push \"redirect-gateway def1\"'. XXX.XXX.XXX.XXX/32 - ip from '$VPN_NETWORK_MASQUERADE_SRC_S'" >> "$SELF_DIR/readme-firewalld-rules.txt";
+    echo '###' >> "$SELF_DIR/readme-firewalld-rules.txt";
+    echo "# firewall-cmd --permanent --zone=vpn_z --add-rich-rule='rule family=ipv4 source address=XXX.XXX.XXX.XXX/32 destination address=$VPN_NETWORK_MASQUERADE_SRC_S masquerade' /// for access from client to another clients at vpn-network" >> "$SELF_DIR/readme-firewalld-rules.txt";
+    echo '###' >> "$SELF_DIR/readme-firewalld-rules.txt";
+    echo '# If dnsmasq (or another dns-server) configured at vpn-server' >> "$SELF_DIR/readme-firewalld-rules.txt";
+    echo "# firewall-cmd --permanent --zone=vpn_z --add-rich-rule='rule family=ipv4 source address=$VPN_NETWORK_MASQUERADE_SRC_S port protocol=tcp port=53 accept'" >> "$SELF_DIR/readme-firewalld-rules.txt";
+    echo "# firewall-cmd --permanent --zone=vpn_z --add-rich-rule='rule family=ipv4 source address=$VPN_NETWORK_MASQUERADE_SRC_S port protocol=udp port=53 accept'" >> "$SELF_DIR/readme-firewalld-rules.txt";
     echo '###' >> "$SELF_DIR/readme-firewalld-rules.txt";
     echo "# firewall-cmd --list-all --zone=$VPN_SERVER_INT_FIREWALLD_ZONE_S /// view all rules for firewall zone" >> "$SELF_DIR/readme-firewalld-rules.txt";
     echo '###' >> "$SELF_DIR/readme-firewalld-rules.txt";
