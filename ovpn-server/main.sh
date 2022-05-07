@@ -49,6 +49,7 @@ source $SELF_DIR/vpn.env;
 
 mkdir -p $SELF_DIR/pki_root/pki;
 PKI_DIR="$SELF_DIR/pki_root/pki";
+PKI_ISSUED_DIR="$PKI_DIR/issued";
 PKI_ROOT_THIS_VPN="$SELF_DIR/pki_root";
 #
 CLI_FILES_DIR_RESULT_CL="$SELF_DIR/cli_certs";
@@ -70,6 +71,12 @@ export EASYRSA_REQ_EMAIL=$EASYRSA_REQ_EMAIL_EV;
 function func_create_cli_cert_and_conf() {
     echo 'Enter client cert name:';
     read CN;
+    
+    if [ -f "$PKI_ISSUED_DIR/$CN.crt" ]; then
+	echo "Cert with name '$CN' already exists. Revoke it first";
+	exit;
+    fi
+    
     CLI_FILES_DIR_RESULT_CL="$CLI_FILES_DIR_RESULT_CL/$CN-files";
     mkdir -p "$CLI_FILES_DIR_RESULT_CL/$CN";
     
@@ -217,6 +224,8 @@ function func_full_setup_vpn_server {
     
     mkdir -p "/etc/openvpn/server/keys/$VPN_SERVER_NAME_S";
     echo "Keys-dir='/etc/openvpn/server/keys/$VPN_SERVER_NAME_S' for vpn-server='$VPN_SERVER_NAME_S' was created";
+    
+    echo "unique_subject = yes" > "$PKI_DIR/index.txt.attr";
     
     ###From $PKI_DIR copy to $VPN_CONF_DIR_S/keys/$VPN_SERVER_NAME_S this files: ca.crt, dh.pem, ta.key
     \cp "$PKI_DIR/ca.crt" "$VPN_CONF_DIR_S/keys/$VPN_SERVER_NAME_S/ca.crt";
