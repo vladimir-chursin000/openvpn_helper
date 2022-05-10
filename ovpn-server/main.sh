@@ -182,6 +182,14 @@ function func_gen_crl_and_restart_ovpn() {
 function func_revoke_client_cert() {
     echo 'Enter client cert name:';
     read CN;
+
+    if [ ! -f "$PKI_ISSUED_DIR/$CN.crt" ]; then
+        echo "Cert with name '$CN' is not exists. Revoke is not possible!";
+	echo "WARNING! If cert was issued and deleted after it is potential security risk!";
+	echo "Please, run 'full_setup_vpn_server.sh' and recreate all client certs with command 'create_cli_cert_and_conf.sh'!"
+        exit;
+    fi
+
     CLI_FILES_DIR_RESULT_CL="$CLI_FILES_DIR_RESULT_CL/$CN-files";
     
     cd "$PKI_ROOT_THIS_VPN";
