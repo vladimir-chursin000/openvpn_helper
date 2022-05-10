@@ -18,7 +18,7 @@ source $SELF_DIR/vpn.env;
 #VPN_NETWORK_MASQUERADE_SRC_S
 #VPN_INTERNAL_NETWORK_MASQUERADE_DST_S
 #
-#VPN_LOCAL_IP_DEV_NAME_S
+#VPN_INTERNAL_IP_DEV_NAME_S
 #VPN_TUN_DEV_NAME_S
 #VPN_SERVER_INT_FIREWALLD_ZONE_S
 ###CFG-VPN-SERVER-only
@@ -389,16 +389,16 @@ function func_full_setup_vpn_server {
     #VPN_INTERNAL_NETWORK_MASQUERADE_DST_S
     firewall-cmd --permanent --zone=$VPN_SERVER_INT_FIREWALLD_ZONE_S --add-rich-rule="rule family=ipv4 source address=$VPN_NETWORK_MASQUERADE_SRC_S destination address=$VPN_INTERNAL_NETWORK_MASQUERADE_DST_S masquerade"
     ###
-    #VPN_LOCAL_IP_DEV_NAME_S
+    #VPN_INTERNAL_DEV_NAME_S
     #VPN_TUN_DEV_NAME_S
     #VPN_SERVER_INT_FIREWALLD_ZONE_S
-    firewall-cmd --permanent --zone=$VPN_SERVER_INT_FIREWALLD_ZONE_S --change-interface=$VPN_LOCAL_IP_DEV_NAME_S;
+    firewall-cmd --permanent --zone=$VPN_SERVER_INT_FIREWALLD_ZONE_S --change-interface=$VPN_INTERNAL_IP_DEV_NAME_S;
     firewall-cmd --permanent --zone=$VPN_SERVER_INT_FIREWALLD_ZONE_S --change-interface=$VPN_TUN_DEV_NAME_S;
     firewall-cmd --reload;
     #
     echo "Port (tcp/udp)=$VPN_PORT_S is allowed now via firewalld";
     echo "Allow masquerading from '$VPN_NETWORK_MASQUERADE_SRC_S' to '$VPN_INTERNAL_NETWORK_MASQUERADE_DST_S'";
-    echo "Interfaces '$VPN_TUN_DEV_NAME_S' and '$VPN_LOCAL_IP_DEV_NAME_S' moved to firewall zone='$VPN_SERVER_INT_FIREWALLD_ZONE_S'";
+    echo "Interfaces '$VPN_TUN_DEV_NAME_S' and '$VPN_INTERNAL_IP_DEV_NAME_S' moved to firewall zone='$VPN_SERVER_INT_FIREWALLD_ZONE_S'";
     echo 'Firewall rules reloaded';
     ###
 
